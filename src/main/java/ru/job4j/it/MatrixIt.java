@@ -10,12 +10,20 @@ public class MatrixIt implements Iterator<Integer> {
 
     public MatrixIt(int[][] data) {
         this.data = data;
-        findNext();
     }
 
     @Override
     public boolean hasNext() {
-        return ((row < data.length) && (column < data[row].length));
+
+        int colStart = column + 1;
+
+        for (int rowIt = row; rowIt < data.length; rowIt++) {
+            if (colStart < (data[rowIt].length)) {
+                return true;
+            }
+            colStart = 0;
+        }
+        return false;
     }
 
     @Override
@@ -23,26 +31,19 @@ public class MatrixIt implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        Integer result = data[row][column];
 
-        findNext();
-
-        return result;
-    }
-
-    private void findNext() {
         column++;
-        if (data.length < 1) {
-            return;
-        }
         if (column >= data[row].length) {
             column = 0;
             do {
                 row++;
-                if (row >= data.length) {
-                    return;
-                }
             } while ((data[row].length <= 0));
         }
+
+        Integer result = data[row][column];
+
+
+        return result;
     }
+
 }

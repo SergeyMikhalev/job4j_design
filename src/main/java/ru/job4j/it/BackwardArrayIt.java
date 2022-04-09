@@ -9,7 +9,7 @@ public class BackwardArrayIt implements Iterator<Integer> {
 
     public BackwardArrayIt(int[] data) {
         this.data = data;
-        point = this.data.length;       //Изначально итератор указывает на элемент перед первым (после последнего)
+        point = this.data.length;
     }
 
     @Override

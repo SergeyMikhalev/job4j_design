@@ -3,8 +3,8 @@ package ru.job4j.it;
 import org.junit.Test;
 
 import java.util.NoSuchElementException;
-
-import static org.hamcrest.Matchers.is;
+// Тесты изменены, убраны deprecated методы
+// import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 public class BackwardArrayItTest {

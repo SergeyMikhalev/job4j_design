@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class SimpleLinkedListTest {
 
@@ -87,9 +87,9 @@ public class SimpleLinkedListTest {
         assertThat(second.next(), Is.is(2));
         assertThat(second.hasNext(), Is.is(false));
     }
+
     @Test(expected = ConcurrentModificationException.class)
-    public void whenConcurrentModificationThenTrowException()
-    {
+    public void whenConcurrentModificationThenTrowException() {
         List<Integer> list = new SimpleLinkedList<>();
         list.add(1);
         list.add(2);

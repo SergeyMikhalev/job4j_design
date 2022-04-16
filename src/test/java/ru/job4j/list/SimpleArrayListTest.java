@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
 
 /**
  * Набор тестов для простой реализация ArrayList
- * */
+ */
 public class SimpleArrayListTest {
 
     List<Integer> list;

@@ -1,5 +1,9 @@
 package ru.job4j.list;
 
+
+/**
+ * Интерфейс List
+ * */
 public interface List<T> extends Iterable<T> {
     void add(T value);
 

@@ -4,6 +4,10 @@ import ru.job4j.list.List;
 
 import java.util.*;
 
+/**
+ * Простая реализация ArrayList
+ * */
+
 public class SimpleArrayList<T> implements List<T> {
 
     private T[] container;

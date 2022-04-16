@@ -65,7 +65,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     private void checkSizeAndGrow() {
         if (size >= container.length) {
-            container = Arrays.copyOf(container, (container.length < 0 ? 10 : container.length * 2));
+            container = Arrays.copyOf(container, (container.length <= 0 ? 10 : container.length * 2));
         }
     }
 

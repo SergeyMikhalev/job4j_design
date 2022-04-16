@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * Простая реализация ArrayList
- * */
+ */
 
 public class SimpleArrayList<T> implements List<T> {
 
@@ -30,17 +30,15 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size);
-        T result = container[index];
+        T result = get(index);
         container[index] = newValue;
         return result;
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
+        T result = get(index);
         modCount++;
-        T result = container[index];
         System.arraycopy(
                 container,
                 index + 1,
@@ -67,7 +65,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     private void checkSizeAndGrow() {
         if (size >= container.length) {
-            container = Arrays.copyOf(container, container.length * 2);
+            container = Arrays.copyOf(container, (container.length < 0 ? 10 : container.length * 2));
         }
     }
 

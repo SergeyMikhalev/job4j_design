@@ -29,11 +29,11 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        Iterator<E> iter = iterator();
+        Node<E> node = head;
         for (int i = 0; i < index; i++) {
-            iter.next();
+            node = node.getNext();
         }
-        return iter.next();
+        return node.getData();
     }
 
     @Override

@@ -20,8 +20,8 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     /**
-     *  Реализация метода переворачинвания односвязного списка
-     * */
+     * Реализация метода переворачинвания односвязного списка
+     */
 
     public boolean revert() {
         boolean result = (head != null) && (head.next != null);

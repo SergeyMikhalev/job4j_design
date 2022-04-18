@@ -20,13 +20,16 @@ public class ListUtils {
     public static <T> void addAfter(List<T> list, int index, T value) {
         Objects.checkIndex(index, list.size());
         ListIterator<T> iterator = list.listIterator();
-        while (iterator.hasNext()) {
-            if (iterator.nextIndex() == index) {
+        do {
+            iterator.next();
+
+            if (iterator.previousIndex() == index) {
                 iterator.add(value);
                 break;
             }
-            iterator.next();
-        }
+
+        } while (iterator.hasNext());
+
     }
 
     public static <T> void removeIf(List<T> list, Predicate<T> filter) {

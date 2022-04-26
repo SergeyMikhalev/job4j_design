@@ -45,9 +45,9 @@ public class SimpleSetTest {
         set.add(2);
         set.add(3);
         Iterator<Integer> it = set.iterator();
-        assertEquals(Integer.valueOf(1),it.next());
-        assertEquals(Integer.valueOf(2),it.next());
-        assertEquals(Integer.valueOf(3),it.next());
+        assertEquals(Integer.valueOf(1), it.next());
+        assertEquals(Integer.valueOf(2), it.next());
+        assertEquals(Integer.valueOf(3), it.next());
     }
 
 }

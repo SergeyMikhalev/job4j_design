@@ -1,6 +1,8 @@
 package ru.job4j.tree;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Optional;
+import java.util.Queue;
 
 public class SimpleTree<E> implements Tree<E> {
     private final Node<E> root;

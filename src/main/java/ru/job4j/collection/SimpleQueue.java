@@ -24,11 +24,4 @@ public class SimpleQueue<T> {
         in.push(value);
     }
 
-    private void checkAndReplace() {
-        if (out.isEmpty()) {
-            while (!in.isEmpty()) {
-                out.push(in.pop());
-            }
-        }
-    }
 }

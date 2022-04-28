@@ -7,27 +7,28 @@ import java.util.Set;
 public class Analyze {
 
     public static Info diff(Set<User> previous, Set<User> current) {
-        Map testingMap = new HashMap();
-        int added = 0;
+        Map<Integer, String> processingMap = new HashMap<>();
         int changed = 0;
         int deleted = 0;
 
         for (User user : current
         ) {
-            testingMap.put(user, user.getName());
+            processingMap.put(user.getId(), user.getName());
         }
 
         for (User user : previous
         ) {
-            if (!testingMap.containsKey(user)) {
+            String name = processingMap.get(user.getId());
+            if (name == null) {
                 deleted++;
+            } else {
+                if (!name.equals(user.getName())) {
+                    changed++;
+                }
             }
         }
-
-        return new Info(0,
-                0,
-                0
-        );
+        int added = current.size() - previous.size() + deleted;
+        return new Info(added, changed, deleted);
     }
 
 }

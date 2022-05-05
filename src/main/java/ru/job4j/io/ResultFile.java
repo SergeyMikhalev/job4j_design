@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 public class ResultFile {
     public static void main(String[] args) {
         try (FileOutputStream out = new FileOutputStream("result.txt")) {
-            out.write("multiplication table".getBytes());
+            out.write("таблица умножения".getBytes());
             out.write(System.lineSeparator().getBytes());
             out.write("---------".getBytes());
             out.write(System.lineSeparator().getBytes());

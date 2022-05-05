@@ -20,7 +20,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int hash(int hashCode) {
-        return hashCode;                // TODO: 04.05.2022 Заменить на нормальный вариант
+        return hashCode;
     }
 
     private int indexFor(int hash) {

@@ -2,9 +2,8 @@ package ru.job4j.io;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.AbstractList;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class LogFilter {
@@ -16,7 +15,7 @@ public class LogFilter {
                 String[] words = s.split(" ");
                 return words[words.length - 2].equals("404");
             }).forEach(rsl::add);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return rsl;
@@ -25,7 +24,7 @@ public class LogFilter {
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("log.txt");
-        System.out.println(log);
+        log.forEach(System.out::println);
 
     }
 }

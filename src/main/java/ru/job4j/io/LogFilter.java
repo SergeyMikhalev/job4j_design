@@ -11,7 +11,7 @@ public class LogFilter {
         try (BufferedReader in = new BufferedReader(new FileReader("log.txt"))) {
             in.lines().filter((String s) -> {
                 String[] words = s.split(" ");
-                return words[words.length - 2].equals("404");
+                return "404".equals(words[words.length - 2]);
             }).forEach(rsl::add);
         } catch (IOException e) {
             e.printStackTrace();

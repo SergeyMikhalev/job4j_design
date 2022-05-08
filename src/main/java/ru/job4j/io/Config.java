@@ -10,7 +10,7 @@ import java.util.StringJoiner;
 public class Config {
 
     private final String path;
-    private final Map<String, String> values = new HashMap<String, String>();
+    private final Map<String, String> values = new HashMap<>();
 
     public Config(final String path) {
         this.path = path;
@@ -26,8 +26,8 @@ public class Config {
 
     private void parseStringToMap(String s) {
         String[] strings = s.split("=", 2);
-        if (strings.length < 2 || "".equals(strings[0]) || "".equals(strings[1])) {
-            throw new IllegalArgumentException();
+        if (strings.length < 2 || strings[0].isEmpty() || strings[1].isEmpty()) {
+            throw new IllegalArgumentException("Illegal string argument -> " + s);
         }
         values.put(strings[0], strings[1]);
     }

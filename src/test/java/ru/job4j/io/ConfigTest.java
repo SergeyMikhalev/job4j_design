@@ -48,6 +48,13 @@ public class ConfigTest {
         config.load();
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNoEquals() {
+        String path = "./data/no_equals.properties";
+        ru.job4j.io.Config config = new ru.job4j.io.Config(path);
+        config.load();
+    }
+
     @Test
     public void whenDoubleEquals() {
         String path = "./data/double_equals.properties";

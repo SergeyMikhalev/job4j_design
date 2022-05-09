@@ -37,7 +37,7 @@ public class SimpleMapTest {
     @Test
     public void whenRemoveOk() {
         SimpleMap<Integer, Integer> map = new SimpleMap<>();
-        map.put(10,10);
+        map.put(10, 10);
         Assert.assertTrue(map.remove(10));
     }
 

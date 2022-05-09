@@ -19,6 +19,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
+        if ((float) count / capacity >= LOAD_FACTOR) {
+            expand();
+        }
+
         int index = indexFor(hash(key.hashCode()));
         boolean rsl = table[index] == null;
 
@@ -26,9 +30,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
             table[index] = new MapEntry<>(key, value);
             count++;
             modCount++;
-            if ((float) count / capacity >= LOAD_FACTOR) {
-                expand();
-            }
+
         }
 
         return rsl;
@@ -48,7 +50,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
         for (MapEntry<K, V> entry : table) {
             if (!Objects.isNull(entry)) {
-                newTable[hash(entry.key.hashCode())] = entry;
+                newTable[indexFor(hash(entry.key.hashCode()))] = entry;
             }
         }
 
@@ -59,15 +61,15 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         int index = indexFor(hash(key.hashCode()));
-        return Objects.isNull(table[index]) ? null : table[index].value;
+        return ((table[index] != null) && table[index].key == key) ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         int index = indexFor(hash(key.hashCode()));
-        boolean rsl = table[index] != null;
-        table[index] = null;
+        boolean rsl = (table[index] != null) && table[index].key == key;
         if (rsl) {
+            table[index] = null;
             count--;
             modCount++;
         }
@@ -76,7 +78,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public Iterator<K> iterator() {
-        return new Iterator<K>() {
+        return new Iterator<>() {
             private int expectedModCount = modCount;
             private int index = 0;
 

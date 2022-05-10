@@ -61,13 +61,13 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         int index = indexFor(hash(key.hashCode()));
-        return ((table[index] != null) && table[index].key == key) ? table[index].value : null;
+        return ((table[index] != null) && Objects.equals(table[index].key, key)) ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         int index = indexFor(hash(key.hashCode()));
-        boolean rsl = (table[index] != null) && table[index].key == key;
+        boolean rsl = (table[index] != null) && Objects.equals(table[index].key, key);
         if (rsl) {
             table[index] = null;
             count--;
@@ -92,7 +92,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
                     index++;
                 }
 
-                return index < table.length && table[index] != null;
+                return index < table.length;
             }
 
             @Override

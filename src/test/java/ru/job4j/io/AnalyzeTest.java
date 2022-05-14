@@ -58,7 +58,8 @@ public class AnalyzeTest {
             out.println("400 10:56:01");
             out.println("500 10:57:01");
             out.println("500 10:58:01");
-            out.println("400 10:59:01");
+            out.println("500 10:59:01");
+            out.println("400 11:00:01");
         }
         new Analyze().unavailable(source.getAbsolutePath(), target.getAbsolutePath());
         StringBuilder rsl = new StringBuilder();

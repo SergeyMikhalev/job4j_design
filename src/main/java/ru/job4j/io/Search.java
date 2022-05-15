@@ -33,6 +33,9 @@ public class Search {
         if (!start.toFile().isDirectory()) {
             throw new IllegalArgumentException(String.format("Not directory %s", start.toFile().getAbsoluteFile()));
         }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("File extension must start with '.' symbol");
+        }
 
         return start;
     }

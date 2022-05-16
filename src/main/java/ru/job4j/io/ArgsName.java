@@ -34,10 +34,13 @@ public class ArgsName {
     }
 
     public static ArgsName of(String[] args) {
-        ArgsName names = new ArgsName();
-        if (args.length != 0) {
-            names.parse(args);
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Illegal string argument -> no args");
         }
+
+        ArgsName names = new ArgsName();
+        names.parse(args);
+
         return names;
     }
 

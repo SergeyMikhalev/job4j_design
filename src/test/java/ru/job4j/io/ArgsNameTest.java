@@ -59,6 +59,5 @@ public class ArgsNameTest {
     @Test(expected = IllegalArgumentException.class)
     public void whenNoArgs() {
         ArgsName jvm = ArgsName.of(new String[]{""});
-        jvm.get("Xms");
     }
 }

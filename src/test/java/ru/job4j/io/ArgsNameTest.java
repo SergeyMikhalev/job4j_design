@@ -35,4 +35,30 @@ public class ArgsNameTest {
     public void whenWrongSomeArgument() {
         ArgsName jvm = ArgsName.of(new String[]{"-enconding=UTF-8", "-Xmx="});
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenWrongWithoutEquals() {
+        ArgsName jvm = ArgsName.of(new String[]{"-Xmx:512"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenWrongWithoutLine() {
+        ArgsName jvm = ArgsName.of(new String[]{"Xmx=512"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenWrongWithoutKey() {
+        ArgsName jvm = ArgsName.of(new String[]{"-=512"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenWrongNoKeyNoValue() {
+        ArgsName jvm = ArgsName.of(new String[]{"-="});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNoArgs() {
+        ArgsName jvm = ArgsName.of(new String[]{""});
+        jvm.get("Xms");
+    }
 }

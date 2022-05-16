@@ -35,7 +35,9 @@ public class ArgsName {
 
     public static ArgsName of(String[] args) {
         ArgsName names = new ArgsName();
-        names.parse(args);
+        if (args.length != 0) {
+            names.parse(args);
+        }
         return names;
     }
 

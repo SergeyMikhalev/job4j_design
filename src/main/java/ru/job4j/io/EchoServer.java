@@ -17,15 +17,11 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                    for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
-                        if (str.startsWith("GET")) {
-                            String cmd = parseMsg(str);
-                            if ("Bye".equals(cmd)) {
-                                System.out.println("Got 'Bye' server close cmd. Closing server....");
-                                server.close();
-                            }
-                        }
-                        System.out.println(str);
+                    String str = in.readLine();
+                    System.out.println(str);
+                    if (str.contains("/?msg=Bye")) {
+                        System.out.println("Cosing server socket");
+                        server.close();
                     }
                     out.flush();
                 }
@@ -33,15 +29,4 @@ public class EchoServer {
         }
     }
 
-    private static String parseMsg(String s) {
-        String rsl = "";
-        String[] substrings = s.split(" ");
-        if (substrings.length > 1) {
-            String[] msg = substrings[1].split("=", 2);
-            if ((msg.length > 1) && ("/?msg".equals(msg[0]))) {
-                rsl = msg[1];
-            }
-        }
-        return rsl;
-    }
 }

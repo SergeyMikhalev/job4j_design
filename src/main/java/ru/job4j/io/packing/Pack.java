@@ -1,18 +1,10 @@
-package ru.job4j.io;
+package ru.job4j.io.packing;
+
+import ru.job4j.io.ArgsName;
 
 public class Pack {
 
     public static void main(String[] args) {
-        ArgsName argsName = ArgsName.of(args);
-        try {
-            String directory = argsName.get("d");
-            String tagetFile = argsName.get("o");
-            String exclude = argsName.get("e");
-
-        } catch (IllegalArgumentException e) {
-            printHintOnWrongKeys();
-            System.exit(1);
-        }
 
     }
 
@@ -25,4 +17,5 @@ public class Pack {
         System.out.println("-o - output - во что мы архивируем.");
         System.out.println("примечание. расширение должно начинаться с точки");
     }
+
 }

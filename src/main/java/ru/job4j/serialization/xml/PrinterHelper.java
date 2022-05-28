@@ -6,8 +6,8 @@ import javax.xml.bind.Marshaller;
 import java.io.StringWriter;
 
 public class PrinterHelper {
-    public static <T> void print(Class<? extends T> printClass, T printObj) throws JAXBException {
-        JAXBContext context = JAXBContext.newInstance(printClass);
+    public static <T> void print(T printObj) throws JAXBException {
+        JAXBContext context = JAXBContext.newInstance(printObj.getClass());
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
@@ -16,7 +16,7 @@ public class PrinterHelper {
             String result = writer.getBuffer().toString();
             System.out.println(result);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 }

@@ -6,34 +6,29 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Note")
+@XmlRootElement(name = "Song")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Note {
-
+public class Song {
 
     @XmlAttribute
-    private String value;
-    @XmlAttribute
-    private String quality;
+    private String name;
 
-    public Note() {
+    public Song(String name) {
+        this.name = name;
     }
 
-    public Note(String value, String quality) {
-        this.value = value;
-        this.quality = quality;
+    public Song() {
     }
 
     @Override
     public String toString() {
-        return "Note{"
-                + "value='" + value + '\''
-                + ", quality='" + quality + '\''
+        return "Song{"
+                + "name='" + name + '\''
                 + '}';
     }
 
     public static void main(String[] args) throws JAXBException {
-        final Note note = new Note("C5", "good");
-        PrinterHelper.print(note);
+        final Song song = new Song("Smells like a teen spirit");
+        PrinterHelper.print(song);
     }
 }

@@ -13,4 +13,8 @@ public class Weapon {
                 + "damage=" + damage
                 + '}';
     }
+
+    public int getDamage() {
+        return damage;
+    }
 }

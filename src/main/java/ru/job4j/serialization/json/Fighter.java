@@ -24,4 +24,20 @@ public class Fighter {
                 + ", canUse=" + Arrays.toString(canUse)
                 + '}';
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isAggressive() {
+        return aggressive;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public String[] getCanUse() {
+        return canUse;
+    }
 }

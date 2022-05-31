@@ -6,7 +6,5 @@ sex boolean
 );
 
 insert into students(name,age,sex) values ('Viktor' , 30, true);
-
 update students set age=32;
-
 delete from students;

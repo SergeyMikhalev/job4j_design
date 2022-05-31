@@ -1,15 +1,16 @@
 package ru.job4j.io.packing;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
+import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
+import java.util.List;
 
-public class PackSearcher extends SimpleFileVisitor {
+public class PackSearcher extends SimpleFileVisitor<Path> {
 
-    private java.util.List<File> files = new LinkedList<>();
+    private java.util.List<Path> files = new LinkedList<>();
     private String extension;
 
     public PackSearcher(String extension) {
@@ -17,8 +18,15 @@ public class PackSearcher extends SimpleFileVisitor {
     }
 
     @Override
-    public FileVisitResult visitFile(Object file, BasicFileAttributes attrs) throws IOException {
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
+        if (!file.endsWith(extension) && attrs.isRegularFile()) {
+            files.add(file);
+        }
         return super.visitFile(file, attrs);
+    }
+
+    public List<Path> getFiles() {
+        return files;
     }
 }

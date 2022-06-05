@@ -66,7 +66,5 @@ insert into teens(name,gender) values ('Kim','female');
 insert into teens(name,gender) values ('Jane','female');
 
 select t1.name as Имя_1, t1.gender as Гендер_1, t2.name as Имя_2,
-t2.gender as Гендер_2 from teens as t1 cross join teens as t2 where t1.name!=t2.name
-and t1.gender!=t2.gender
--- стоит ли убирать повторяющиеся пары??
-and t1.gender='male'
+t2.gender as Гендер_2 from teens as t1 cross join teens as t2 where t1.gender='male'
+and t2.gender!='male'

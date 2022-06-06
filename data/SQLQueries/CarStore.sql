@@ -21,6 +21,8 @@ create table car(
     transmission_id int references transmission(id)
 );
 
+
+
 insert into bodywork (body_name) values ('Кузов 1');
 insert into bodywork (body_name) values ('Кузов 2');
 insert into bodywork (body_name) values ('Кузов 3');

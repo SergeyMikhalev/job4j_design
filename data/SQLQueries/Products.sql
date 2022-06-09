@@ -74,3 +74,4 @@ p.expired_date as exp_date,
 p.price as price,
 t.name as prod_type
 from product as p join type as t on p.type_id=t.id;
+

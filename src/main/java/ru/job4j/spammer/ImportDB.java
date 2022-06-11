@@ -3,6 +3,7 @@ package ru.job4j.spammer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -27,6 +28,9 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(s -> {
                 String[] parts = s.split(";");
+                if (parts.length < 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
+                    throw new IllegalArgumentException();
+                }
                 users.add(new User(parts[0], parts[1]));
             });
         }
@@ -71,8 +75,8 @@ public class ImportDB {
 
     public static void main(String[] args) throws Exception {
         Properties cfg = new Properties();
-        try (FileReader fileReader = new FileReader("app.properties")) {
-            cfg.load(fileReader);
+        try (InputStream in = ImportDB.class.getClassLoader().getResourceAsStream("app.properties")) {
+            cfg.load(in);
         }
         ImportDB db = new ImportDB(cfg, "dump.txt");
         db.save(db.load());

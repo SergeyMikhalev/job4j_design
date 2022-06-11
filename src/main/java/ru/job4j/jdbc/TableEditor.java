@@ -1,6 +1,5 @@
 package ru.job4j.jdbc;
 
-import java.io.FileReader;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;

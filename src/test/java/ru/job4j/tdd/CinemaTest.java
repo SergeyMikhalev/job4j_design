@@ -36,7 +36,7 @@ public class CinemaTest {
         cinema.add(new Session3D());
         List<Session> sessions = cinema.find(session -> false);
         assertThat(sessions, is(Arrays.asList(new Session3D())));
-        Assert.assertEquals(sessions.size(),0);
+        Assert.assertEquals(sessions.size(), 0);
     }
 
 }

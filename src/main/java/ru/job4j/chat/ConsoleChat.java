@@ -8,16 +8,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class ConsoleChat {
     private static final String OUT = "закончить";
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
+
     private final String path;
     private final String botAnswers;
     private List<String> phrases;
+    private final List<String> log = new ArrayList<>(100);
     private boolean ended = false;
     private boolean answer = true;
+    private Random random = new Random();
 
     public ConsoleChat(String path, String botAnswers) {
         this.path = path;
@@ -29,8 +34,38 @@ public class ConsoleChat {
     }
 
     public void run() {
-        while (ended) {
-            System.out.println('!');
+        Scanner scanner = new Scanner(System.in);
+        load();
+        while (!ended) {
+            String phrase = scanner.nextLine();
+            processCommands(phrase);
+            log.add(phrase);
+            if (answer) {
+                makeAnswer();
+            }
+        }
+        saveLog();
+    }
+
+    private void makeAnswer() {
+        String botsAnswer = phrases.get(random.nextInt(phrases.size()));
+        System.out.println(botsAnswer);
+        log.add(botsAnswer);
+    }
+
+    private void processCommands(String phrase) {
+        switch (phrase) {
+            case OUT:
+                ended = true;
+                answer = false;
+                break;
+            case STOP:
+                answer = false;
+                break;
+            case CONTINUE:
+                answer = true;
+                break;
+            default:
         }
     }
 
@@ -44,7 +79,7 @@ public class ConsoleChat {
         return result;
     }
 
-    private void saveLog(List<String> log) {
+    private void saveLog() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(botAnswers))) {
             for (String s : log) {
                 writer.write(s);
@@ -55,8 +90,11 @@ public class ConsoleChat {
         }
     }
 
+
     public static void main(String[] args) {
-        ConsoleChat cc = new ConsoleChat("", "");
+        ConsoleChat cc = new ConsoleChat("phrases.txt", "log.txt");
         cc.run();
     }
+
+
 }

@@ -29,13 +29,9 @@ public class ConsoleChat {
         this.botAnswers = botAnswers;
     }
 
-    public void load() {
-        phrases = readPhrases();
-    }
-
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        load();
+        phrases = readPhrases();
         while (!ended) {
             String phrase = scanner.nextLine();
             processCommands(phrase);

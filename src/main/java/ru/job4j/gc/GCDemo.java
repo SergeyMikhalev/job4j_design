@@ -22,7 +22,6 @@ public class GCDemo {
         for (int i = 0; i < 200_000; i++) {
             new User(i);
         }
-        //System.gc();
         info();
     }
 

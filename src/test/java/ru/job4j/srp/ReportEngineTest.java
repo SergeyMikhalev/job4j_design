@@ -1,6 +1,8 @@
 package ru.job4j.srp;
 
+import com.google.gson.GsonBuilder;
 import org.junit.Test;
+import ru.job4j.serialization.xml.PrinterHelper;
 
 import java.util.Calendar;
 
@@ -97,7 +99,31 @@ public class ReportEngineTest {
                 .append(System.lineSeparator());
 
         assertThat(engine.generate(em -> true), is(expect.toString()));
+    }
 
+    @Test
+    public void whenJSONGenerated() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker = new Employee("Ivan", now, now, 10000);
+        store.add(worker);
+        Report engine = new JSONReportEngine(store);
+        String expect = new GsonBuilder().create().toJson(worker) + System.lineSeparator();
+        assertThat(engine.generate(em -> true), is(expect));
+    }
 
+    @Test
+    public void whenXMLGenerated() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker = new Employee("Ivan", now, now, 10000);
+        store.add(worker);
+        Report engine = new XMLReportEngine(store);
+        String expect = "";
+        try {
+            expect = PrinterHelper.doString(worker) + System.lineSeparator();
+        } catch (Exception e) {
+        }
+        assertThat(engine.generate(em -> true), is(expect));
     }
 }

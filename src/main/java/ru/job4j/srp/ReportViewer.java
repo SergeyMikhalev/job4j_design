@@ -8,9 +8,9 @@ public class ReportViewer {
 
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
-        Employee worker = new Employee("Ivan", now, now, 100);
-        store.add(worker);
-        Report engine = new ReportEngine(store);
+        Employee worker1 = new Employee("Ivan", now, now, 10000);
+        store.add(worker1);
+        Report engine = new PrgReportEngine(store);
         System.out.println(engine.generate(em -> true));
     }
 }

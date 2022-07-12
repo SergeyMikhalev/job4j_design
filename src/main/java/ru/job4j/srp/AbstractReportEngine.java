@@ -1,34 +1,46 @@
 package ru.job4j.srp;
 
-import ru.job4j.srp.printers.ReportEmployeePrinter;
-import ru.job4j.srp.printers.ReportHeaderPrinter;
-
 import java.util.List;
 import java.util.function.Predicate;
 
-public class AbstractReportEngine implements Report {
+public abstract class AbstractReportEngine implements Report {
 
     private Store store;
-    private ReportHeaderPrinter headerPrinter;
-    private ReportEmployeePrinter employeePrinter;
 
-    public AbstractReportEngine(Store store, ReportHeaderPrinter headerPrinter, ReportEmployeePrinter employeePrinter) {
+    public AbstractReportEngine(Store store) {
         this.store = store;
-        this.headerPrinter = headerPrinter;
-        this.employeePrinter = employeePrinter;
     }
 
     @Override
     public String generate(Predicate<Employee> filter) {
+
+        List<Employee> employees = store.findBy(filter);
+        preprocessData(employees);
+
         StringBuilder text = new StringBuilder();
-        text.append(headerPrinter.printHeader());
-        for (Employee employee : getData(filter)) {
-            text.append(employeePrinter.print(employee));
+        text.append(printBeforeEmployees());
+
+        for (Employee employee : employees) {
+            text.append(printEmployee(employee));
         }
+
+        text.append(printAfterEmployees());
         return text.toString();
     }
 
-    private List<Employee> getData(Predicate<Employee> filter) {
-        return store.findBy(filter);
+    protected void preprocessData(List<Employee> employees) {
     }
+
+    protected String printBeforeEmployees() {
+        return "Name; Hired; Fired; Salary;" + System.lineSeparator();
+    }
+
+    protected String printEmployee(Employee employee) {
+        return employee.toString();
+    }
+
+    protected String printAfterEmployees() {
+        return "";
+    }
+
 }

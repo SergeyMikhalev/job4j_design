@@ -6,7 +6,6 @@ public class PrgReportEngine extends AbstractReportEngine {
 
     public static final SimpleDateFormat PRG_DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
 
-
     public PrgReportEngine(Store store) {
         super(store);
     }
@@ -38,6 +37,6 @@ public class PrgReportEngine extends AbstractReportEngine {
 
     @Override
     protected String printAfterEmployees() {
-        return "</table>" + System.lineSeparator().toString();
+        return "</table>" + System.lineSeparator();
     }
 }

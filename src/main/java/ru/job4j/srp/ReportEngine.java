@@ -8,8 +8,6 @@ public class ReportEngine extends AbstractReportEngine {
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
 
-    private Store store;
-
     public ReportEngine(Store store) {
         super(store);
     }

@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 public abstract class AbstractReportEngine implements Report {
 
-    private Store store;
+    protected Store store;
 
     public AbstractReportEngine(Store store) {
         this.store = store;

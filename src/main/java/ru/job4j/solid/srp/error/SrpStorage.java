@@ -1,4 +1,4 @@
-package ru.job4j.srp.error;
+package ru.job4j.solid.srp.error;
 
 import java.util.ArrayList;
 import java.util.List;

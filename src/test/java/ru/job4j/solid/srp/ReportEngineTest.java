@@ -1,4 +1,4 @@
-package ru.job4j.srp;
+package ru.job4j.solid.srp;
 
 import com.google.gson.GsonBuilder;
 import org.junit.Test;
@@ -8,10 +8,10 @@ import java.util.Calendar;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static ru.job4j.srp.AccountingReportEngine.ACCOUNTING_DATE_FORMAT;
-import static ru.job4j.srp.AccountingReportEngine.ACCOUNTING_SALARY_FORMAT;
-import static ru.job4j.srp.PrgReportEngine.PRG_DATE_FORMAT;
-import static ru.job4j.srp.ReportEngine.DATE_FORMAT;
+import static ru.job4j.solid.srp.AccountingReportEngine.ACCOUNTING_DATE_FORMAT;
+import static ru.job4j.solid.srp.AccountingReportEngine.ACCOUNTING_SALARY_FORMAT;
+import static ru.job4j.solid.srp.PrgReportEngine.PRG_DATE_FORMAT;
+import static ru.job4j.solid.srp.ReportEngine.DATE_FORMAT;
 
 public class ReportEngineTest {
 

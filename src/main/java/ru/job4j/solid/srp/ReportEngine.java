@@ -1,23 +1,19 @@
-package ru.job4j.srp;
+package ru.job4j.solid.srp;
 
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class HRReportEngine extends AbstractReportEngine {
+public class ReportEngine extends AbstractReportEngine {
 
-    public HRReportEngine(Store store) {
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
+
+    public ReportEngine(Store store) {
         super(store);
     }
 
     @Override
     protected void preprocessData(List<Employee> employees) {
-        employees.sort((Employee e1, Employee e2) -> {
-            return (int) (e2.getSalary() - e1.getSalary());
-        });
-    }
-
-    @Override
-    protected String printBeforeEmployees() {
-        return "Name; Salary;" + System.lineSeparator();
     }
 
     @Override
@@ -25,6 +21,8 @@ public class HRReportEngine extends AbstractReportEngine {
         StringBuilder text = new StringBuilder();
 
         text.append(employee.getName()).append(";")
+                .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
+                .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
                 .append(employee.getSalary()).append(";")
                 .append(System.lineSeparator());
 

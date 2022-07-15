@@ -1,4 +1,4 @@
-package ru.job4j.srp;
+package ru.job4j.solid.srp;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

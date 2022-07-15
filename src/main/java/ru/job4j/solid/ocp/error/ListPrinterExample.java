@@ -1,4 +1,4 @@
-package ru.job4j.ocp.error;
+package ru.job4j.solid.ocp.error;
 
 import java.util.ArrayList;
 /*Данный код нарушает принцып открытости-закрытости, т.к. если нам понадобится распечатать другой список,

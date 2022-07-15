@@ -1,4 +1,4 @@
-package ru.job4j.srp.error;
+package ru.job4j.solid.srp.error;
 
 public class SrpBall {
     public void draw() {

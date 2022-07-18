@@ -3,28 +3,27 @@ package ru.job4j.solid.srp;
 import ru.job4j.serialization.xml.PrinterHelper;
 
 import javax.xml.bind.JAXBException;
+import java.util.function.Predicate;
 
-public class XMLReportEngine extends AbstractReportEngine {
-
+public class XMLReportEngine implements Report {
+    Store store;
 
     public XMLReportEngine(Store store) {
-        super(store);
+        this.store = store;
     }
 
     @Override
-    protected String printBeforeEmployees() {
-        return "";
-    }
+    public String generate(Predicate<Employee> filter) {
+        EmployeesWrapper employees = new EmployeesWrapper(store.findBy(filter));
+        String result;
 
-    @Override
-    protected String printEmployee(Employee employee) {
-        String result = "";
         try {
-            result = PrinterHelper.doString(employee) + System.lineSeparator();
+            result = PrinterHelper.doString(employees);
         } catch (JAXBException e) {
             e.printStackTrace();
-            result = "-error while saving-" + System.lineSeparator();
+            result = "Error while serializing to XML";
         }
+
         return result;
     }
 }

@@ -1,8 +1,6 @@
 package ru.job4j.solid.srp;
 
-import com.google.gson.GsonBuilder;
 import org.junit.Test;
-import ru.job4j.serialization.xml.PrinterHelper;
 
 import java.util.Calendar;
 
@@ -105,10 +103,14 @@ public class ReportEngineTest {
     public void whenJSONGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
+        now.set(2022, 1, 1, 1, 1, 1);
         Employee worker = new Employee("Ivan", now, now, 10000);
         store.add(worker);
         Report engine = new JSONReportEngine(store);
-        String expect = new GsonBuilder().create().toJson(worker) + System.lineSeparator();
+        String expect = "[{\"name\":\"Ivan\"," +
+                "\"hired\":{\"year\":2022,\"month\":1,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":1,\"second\":1}," +
+                "\"fired\":{\"year\":2022,\"month\":1,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":1,\"second\":1}," +
+                "\"salary\":10000.0}]";
         assertThat(engine.generate(em -> true), is(expect));
     }
 
@@ -116,14 +118,18 @@ public class ReportEngineTest {
     public void whenXMLGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
+        now.setTimeInMillis(10_000L);
+
         Employee worker = new Employee("Ivan", now, now, 10000);
         store.add(worker);
         Report engine = new XMLReportEngine(store);
-        String expect = "";
-        try {
-            expect = PrinterHelper.doString(worker) + System.lineSeparator();
-        } catch (Exception e) {
-        }
+        String expect = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                "<Report>\n" +
+                "    <Employees>\n" +
+                "        <employee name=\"Ivan\" hired=\"1970-01-01T03:00:10+03:00\" " +
+                "fired=\"1970-01-01T03:00:10+03:00\" salary=\"10000.0\"/>\n" +
+                "    </Employees>\n" +
+                "</Report>\n";
         assertThat(engine.generate(em -> true), is(expect));
     }
 }

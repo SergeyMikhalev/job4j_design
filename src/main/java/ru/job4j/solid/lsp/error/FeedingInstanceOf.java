@@ -6,6 +6,7 @@ public class FeedingInstanceOf {
     * Правильнее использовать перегруженный метод класса.
     * */
 
+
     public void feed(Animal animal) {
         if (animal instanceof Cow) {
             System.out.println("Eating grass");

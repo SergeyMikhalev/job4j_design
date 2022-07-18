@@ -107,10 +107,10 @@ public class ReportEngineTest {
         Employee worker = new Employee("Ivan", now, now, 10000);
         store.add(worker);
         Report engine = new JSONReportEngine(store);
-        String expect = "[{\"name\":\"Ivan\"," +
-                "\"hired\":{\"year\":2022,\"month\":1,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":1,\"second\":1}," +
-                "\"fired\":{\"year\":2022,\"month\":1,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":1,\"second\":1}," +
-                "\"salary\":10000.0}]";
+        String expect = "[{\"name\":\"Ivan\","
+                + "\"hired\":{\"year\":2022,\"month\":1,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":1,\"second\":1},"
+                + "\"fired\":{\"year\":2022,\"month\":1,\"dayOfMonth\":1,\"hourOfDay\":1,\"minute\":1,\"second\":1},"
+                + "\"salary\":10000.0}]";
         assertThat(engine.generate(em -> true), is(expect));
     }
 
@@ -123,13 +123,13 @@ public class ReportEngineTest {
         Employee worker = new Employee("Ivan", now, now, 10000);
         store.add(worker);
         Report engine = new XMLReportEngine(store);
-        String expect = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<Report>\n" +
-                "    <Employees>\n" +
-                "        <employee name=\"Ivan\" hired=\"1970-01-01T03:00:10+03:00\" " +
-                "fired=\"1970-01-01T03:00:10+03:00\" salary=\"10000.0\"/>\n" +
-                "    </Employees>\n" +
-                "</Report>\n";
+        String expect = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+                + "<Report>\n"
+                + "    <Employees>\n"
+                + "        <employee name=\"Ivan\" hired=\"1970-01-01T03:00:10+03:00\" "
+                + "fired=\"1970-01-01T03:00:10+03:00\" salary=\"10000.0\"/>\n"
+                + "    </Employees>\n"
+                + "</Report>\n";
         assertThat(engine.generate(em -> true), is(expect));
     }
 }

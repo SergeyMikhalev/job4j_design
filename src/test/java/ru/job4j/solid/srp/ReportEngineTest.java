@@ -132,6 +132,7 @@ public class ReportEngineTest {
                     </Employees>
                 </Report>
                 """;
+
         assertThat(engine.generate(em -> true), is(expect));
     }
 }

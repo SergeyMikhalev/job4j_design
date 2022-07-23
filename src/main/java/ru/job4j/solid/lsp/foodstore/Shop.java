@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Shop implements Store {
 
-    private ArrayList storage = new ArrayList(10);
+    private final ArrayList<Food> storage = new ArrayList<>(10);
 
     private final static double QUALITY_LOWER_BOUND = 25.0;
     private final static double QUALITY_UPPER_BOUND = 100.0;
@@ -22,7 +22,7 @@ public class Shop implements Store {
         double expiredRate = Utilities.getPercentsOfExpired(food);
         if (expiredRate >= QUALITY_LOWER_BOUND && expiredRate < QUALITY_UPPER_BOUND) {
             if (expiredRate > QUALITY_DISCOUNT_BOUND) {
-                food.setPrice(food.getPrice() * food.getDiscount() / 100.0);
+                food.setPrice(food.getPrice() * (1.0 - food.getDiscount() / 100.0));
             }
             result = storage.add(food);
         }

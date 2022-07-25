@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Trash  implements Store {
 
-    private ArrayList storage = new ArrayList(10);
+    private List<Food> storage = new ArrayList<>();
     private final static double QUALITY_BOUND = 100.0;
 
     @Override
     public List<Food> getAllFood() {
-        return storage;
+        return new ArrayList<>(storage);
     }
 
     @Override

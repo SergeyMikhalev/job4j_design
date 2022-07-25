@@ -1,16 +1,17 @@
 package ru.job4j.solid.lsp.foodstore;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Warehouse implements Store {
 
-    private ArrayList storage = new ArrayList(10);
+    private ArrayList<Food> storage = new ArrayList<>();
     private final static double QUALITY_BOUND = 25.0;
 
     @Override
     public List<Food> getAllFood() {
-        return storage;
+        return new ArrayList<>(storage) ;
     }
 
     @Override

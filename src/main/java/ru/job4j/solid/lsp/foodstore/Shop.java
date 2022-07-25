@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Shop implements Store {
 
-    private final ArrayList<Food> storage = new ArrayList<>(10);
+    private final List<Food> storage = new ArrayList<>();
 
     private final static double QUALITY_LOWER_BOUND = 25.0;
     private final static double QUALITY_UPPER_BOUND = 100.0;
@@ -13,7 +13,7 @@ public class Shop implements Store {
 
     @Override
     public List<Food> getAllFood() {
-        return storage;
+        return new ArrayList<>(storage);
     }
 
     @Override

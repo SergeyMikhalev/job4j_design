@@ -28,12 +28,12 @@ public class FoodStoreTest {
     @Test
     public void whenStoreInWarehouse() {
         Food food = Food.getInstance("Bread",
-                LocalDate.of(2022, 7, 1),
-                LocalDate.of(2022, 12, 1),
+                LocalDate.now().minusDays(1),
+                LocalDate.now().plusDays(10),
                 1000.0, 10.0);
 
         controlQuality.put(food);
-        Assert.assertEquals(food, warehouse.getAllFood().get(0));
+        Assert.assertEquals(List.of(food), warehouse.getAllFood());
         Assert.assertTrue(trash.getAllFood().isEmpty());
         Assert.assertTrue(shop.getAllFood().isEmpty());
     }
@@ -41,12 +41,12 @@ public class FoodStoreTest {
     @Test
     public void whenStoreInTrash() {
         Food food = Food.getInstance("Bread",
-                LocalDate.of(2022, 7, 1),
-                LocalDate.of(2022, 7, 20),
+                LocalDate.now().minusDays(10),
+                LocalDate.now().minusDays(1),
                 1000.0, 10.0);
 
         controlQuality.put(food);
-        Assert.assertEquals(food, trash.getAllFood().get(0));
+        Assert.assertEquals(List.of(food), trash.getAllFood());
         Assert.assertTrue(warehouse.getAllFood().isEmpty());
         Assert.assertTrue(shop.getAllFood().isEmpty());
     }
@@ -55,13 +55,13 @@ public class FoodStoreTest {
     @Test
     public void whenStoreInShopWithoutDiscount() {
         Food food = Food.getInstance("Bread",
-                LocalDate.of(2022, 7, 1),
-                LocalDate.of(2022, 7, 31),
+                LocalDate.now().minusDays(10),
+                LocalDate.now().plusDays(10),
                 1000.0, 10.0);
 
         controlQuality.put(food);
-        Assert.assertEquals(food, shop.getAllFood().get(0));
-        Assert.assertTrue(1000.0 == shop.getAllFood().get(0).getPrice());
+        Assert.assertEquals(List.of(food), shop.getAllFood());
+        Assert.assertEquals(1000.0, food.getPrice(), 0.0);
         Assert.assertTrue(warehouse.getAllFood().isEmpty());
         Assert.assertTrue(trash.getAllFood().isEmpty());
     }
@@ -69,15 +69,43 @@ public class FoodStoreTest {
     @Test
     public void whenStoreInShopWithDiscount() {
         Food food = Food.getInstance("Bread",
-                LocalDate.of(2022, 7, 1),
-                LocalDate.of(2022, 7, 25),
+                LocalDate.now().minusDays(10),
+                LocalDate.now().plusDays(2),
                 1000.0, 10.0);
 
         controlQuality.put(food);
-        Assert.assertEquals(food, shop.getAllFood().get(0));
-        Assert.assertTrue(900.0 == shop.getAllFood().get(0).getPrice());
+        Assert.assertEquals(List.of(food), shop.getAllFood());
+        Assert.assertEquals(900.0, food.getPrice(), 0.0);
         Assert.assertTrue(warehouse.getAllFood().isEmpty());
         Assert.assertTrue(trash.getAllFood().isEmpty());
+    }
+
+
+    @Test
+    public void whenMultipleFoodInstances() {
+        Food bread = Food.getInstance("Bread",
+                LocalDate.now().minusDays(10),
+                LocalDate.now().plusDays(2),
+                1000.0, 10.0);
+
+        Food meat = Food.getInstance("Meat",
+                LocalDate.now().minusDays(10),
+                LocalDate.now().minusDays(2),
+                600.0, 15.0);
+
+        Food fish = Food.getInstance("Fish",
+                LocalDate.now().minusDays(1),
+                LocalDate.now().plusDays(20),
+                1000.0, 5.0);
+
+        controlQuality.put(fish);
+        controlQuality.put(meat);
+        controlQuality.put(bread);
+
+        Assert.assertEquals(List.of(meat), trash.getAllFood());
+        Assert.assertEquals(List.of(fish), warehouse.getAllFood());
+        Assert.assertEquals(List.of(bread), shop.getAllFood());
+
     }
 
 }

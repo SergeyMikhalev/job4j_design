@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Warehouse implements Store {
 
-    private ArrayList<Food> storage = new ArrayList<>();
+    private List<Food> storage = new ArrayList<>();
     private final static double QUALITY_BOUND = 25.0;
 
 

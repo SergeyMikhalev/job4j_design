@@ -108,4 +108,29 @@ public class FoodStoreTest {
 
     }
 
+    @Test
+    public void whenUseResort() {
+        Food bread = Food.getInstance("Bread",
+                LocalDate.now().minusDays(10),
+                LocalDate.now().plusDays(2),
+                1000.0, 10.0);
+
+        Food fish = Food.getInstance("Fish",
+                LocalDate.now().minusDays(1),
+                LocalDate.now().plusDays(20),
+                1000.0, 5.0);
+
+        controlQuality.put(fish);
+        controlQuality.put(bread);
+
+        bread.setCreateDate(LocalDate.now());
+        fish.setExpiryDate(LocalDate.now());
+
+        controlQuality.resort();
+
+        Assert.assertEquals(List.of(fish), trash.getAllFood());
+        Assert.assertEquals(List.of(bread), warehouse.getAllFood());
+
+    }
+
 }

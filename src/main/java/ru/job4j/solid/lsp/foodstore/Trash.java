@@ -3,7 +3,7 @@ package ru.job4j.solid.lsp.foodstore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trash  implements Store {
+public class Trash implements Store {
 
     private List<Food> storage = new ArrayList<>();
     private final static double QUALITY_BOUND = 100.0;
@@ -20,5 +20,10 @@ public class Trash  implements Store {
             result = storage.add(food);
         }
         return result;
+    }
+
+    @Override
+    public void clear() {
+        storage.clear();
     }
 }

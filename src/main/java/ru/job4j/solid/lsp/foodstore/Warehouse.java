@@ -22,4 +22,9 @@ public class Warehouse implements Store {
         }
         return result;
     }
+
+    @Override
+    public void clear() {
+        storage.clear();
+    }
 }

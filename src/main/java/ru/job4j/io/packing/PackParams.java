@@ -22,4 +22,13 @@ public class PackParams {
     public String getExcludeExtension() {
         return excludeExtension;
     }
+
+    @Override
+    public String toString() {
+        return "PackParams{"
+                + "sourceDirectory='" + sourceDirectory + '\''
+                + ", targetZIP='" + targetZIP + '\''
+                + ", excludeExtension='" + excludeExtension + '\''
+                + '}';
+    }
 }

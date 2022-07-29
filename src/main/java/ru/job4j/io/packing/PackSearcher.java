@@ -12,6 +12,7 @@ public class PackSearcher extends SimpleFileVisitor<Path> {
 
     private java.util.List<Path> files = new LinkedList<>();
     private String extension;
+    private Path source;
 
     public PackSearcher(String extension) {
         this.extension = extension;
@@ -20,7 +21,7 @@ public class PackSearcher extends SimpleFileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
-        if (!file.endsWith(extension) && attrs.isRegularFile()) {
+        if (!file.endsWith(extension)) {
             files.add(file);
         }
         return super.visitFile(file, attrs);

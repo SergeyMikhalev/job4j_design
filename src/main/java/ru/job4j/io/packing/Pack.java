@@ -15,10 +15,15 @@ public class Pack {
             printHintOnWrongKeys();
         }
 
+        System.out.println(packParams);
+
         if (packParams != null) {
             PackSearcher packSearcher = new PackSearcher(packParams.getExcludeExtension());
             Files.walkFileTree(Path.of(packParams.getSourceDirectory()), packSearcher);
-            new Zip().packFiles(packSearcher.getFiles(), Path.of(packParams.getTargetZIP()));
+            System.out.println(packSearcher.getFiles());
+            new Zip().packFiles(packSearcher.getFiles(),
+                    Path.of(packParams.getTargetZIP()),
+                    Path.of(packParams.getSourceDirectory()));
         }
 
     }

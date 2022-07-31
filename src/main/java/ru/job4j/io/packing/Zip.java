@@ -12,10 +12,6 @@ public class Zip {
     public void packFiles(List<Path> sources, Path target, Path root) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target.toFile())))) {
             for (Path source : sources) {
-
-                System.out.println(source.toFile().getPath());
-                System.out.println(root.toFile().getPath());
-                System.out.println(root.relativize(source).toFile().getPath());
                 zip.putNextEntry(new ZipEntry(root.relativize(source).toFile().getPath()));
 
                 try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(source.toFile()))) {

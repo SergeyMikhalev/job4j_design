@@ -1,10 +1,16 @@
 package ru.job4j.io.packing;
 
+import ru.job4j.io.Search;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pack {
+
+    private static List<Path> paths = new ArrayList<>(10);
 
     public static void main(String[] args) throws IOException {
         PackParams packParams = null;
@@ -12,30 +18,20 @@ public class Pack {
         try {
             packParams = PackParamsValidator.validate(args);
         } catch (IllegalArgumentException e) {
-            printHintOnWrongKeys();
+            PackParamsValidator.printHintOnWrongKeys();
         }
 
-        System.out.println(packParams);
-
         if (packParams != null) {
-            PackSearcher packSearcher = new PackSearcher(packParams.getExcludeExtension());
-            Files.walkFileTree(Path.of(packParams.getSourceDirectory()), packSearcher);
-            System.out.println(packSearcher.getFiles());
-            new Zip().packFiles(packSearcher.getFiles(),
+            final String ext = packParams.getExcludeExtension();
+            Search.search(Path.of(packParams.getSourceDirectory()), p -> !p.toFile()
+                    .getName().endsWith(ext)).forEach(paths::add);
+            System.out.println(paths);
+            new Zip().packFiles(paths,
                     Path.of(packParams.getTargetZIP()),
                     Path.of(packParams.getSourceDirectory()));
         }
 
     }
 
-    private static void printHintOnWrongKeys() {
-        System.out.println("Неверно заданы ключи работы приложения");
-        System.out.println("Верный формат -d=c:\\xxx\\ -e=.xxx -o=xxx.zip");
-        System.out.println("где");
-        System.out.println("-d - directory - которую мы хотим архивировать.");
-        System.out.println("-e - exclude - исключить файлы с расширением xxx.");
-        System.out.println("-o - output - во что мы архивируем.");
-        System.out.println("примечание. расширение должно начинаться с точки");
-    }
 
 }

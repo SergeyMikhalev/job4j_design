@@ -19,7 +19,6 @@ public class CSVReader {
 
     public static void handle(ArgsName args) {
         params = CSVValidator.validate(args);
-
         List<Integer> indexes = new ArrayList<>(params.getColumns().size());
 
         try (Scanner scanner = new Scanner(params.getSource())) {
@@ -35,24 +34,25 @@ public class CSVReader {
                 }
             }
 
-            if (!params.isPrintToConsole()) {
-                printer = new PrintStream(params.getTarget().toString());
-            } else {
+            if (params.isPrintToConsole()) {
                 printer = System.out;
+                printAllData(scanner, indexes, header);
+            } else {
+                try (PrintStream outPrinter = new PrintStream(params.getTarget().toString())) {
+                    printer = outPrinter;
+                    printAllData(scanner, indexes, header);
+                }
             }
-
-            printCSVLine(header, indexes);
-            while (scanner.hasNext()) {
-                List<String> columns = List.of(scanner.next().split(params.getDelimiter()));
-                printCSVLine(columns, indexes);
-            }
-
-            if (!params.isPrintToConsole() && printer != null) {
-                printer.close();
-            }
-
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void printAllData(Scanner scanner, List<Integer> indexes, List<String> header) {
+        printCSVLine(header, indexes);
+        while (scanner.hasNext()) {
+            List<String> columns = List.of(scanner.next().split(params.getDelimiter()));
+            printCSVLine(columns, indexes);
         }
     }
 

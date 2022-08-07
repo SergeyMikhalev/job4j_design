@@ -1,5 +1,7 @@
 package ru.job4j.solid.isp.menu;
 
+import org.hamcrest.core.IsNull;
+
 import java.util.*;
 
 public class SimpleMenu implements Menu {
@@ -8,8 +10,12 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
-
         boolean result = false;
+        if (ROOT == parentName) {
+            result = rootElements.add(new SimpleMenuItem(childName, actionDelegate));
+        }
+
+
         Optional<ItemInfo> parentItem = findItem(parentName);
         if (parentItem.isPresent()) {
             result = parentItem.get().menuItem.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
@@ -19,14 +25,31 @@ public class SimpleMenu implements Menu {
 
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
+        Optional<ItemInfo> item = findItem(itemName);
+        Optional<MenuItemInfo> result = item.isPresent()
+                ?
+                Optional.of(new MenuItemInfo(item.get().menuItem, item.get().number))
+                : Optional.empty();
 
 
-        return null;
+        return result;
     }
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
-        return null;
+        DFSIterator innerIterator = new DFSIterator();
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return innerIterator.hasNext();
+            }
+
+            @Override
+            public MenuItemInfo next() {
+                ItemInfo itemInfo = innerIterator.next();
+                return new MenuItemInfo(itemInfo.menuItem, itemInfo.number);
+            }
+        };
     }
 
     private Optional<ItemInfo> findItem(String name) {
@@ -35,12 +58,12 @@ public class SimpleMenu implements Menu {
 
         while (iterator.hasNext()) {
             ItemInfo itemInfo = iterator.next();
-            if (itemInfo.menuItem.getName() == name) {
+            if (itemInfo.menuItem.getName().equals(name)) {
                 result = itemInfo;
                 break;
             }
         }
-        return Optional.of(result);
+        return Optional.ofNullable(result);
 
     }
 

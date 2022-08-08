@@ -1,7 +1,5 @@
 package ru.job4j.solid.isp.menu;
 
-import org.hamcrest.core.IsNull;
-
 import java.util.*;
 
 public class SimpleMenu implements Menu {
@@ -10,29 +8,30 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
-        boolean result = false;
-        if (ROOT == parentName) {
-            result = rootElements.add(new SimpleMenuItem(childName, actionDelegate));
+        if (findItem(childName).isPresent()) {
+            return false;
         }
 
+        boolean result = false;
 
-        Optional<ItemInfo> parentItem = findItem(parentName);
-        if (parentItem.isPresent()) {
-            result = parentItem.get().menuItem.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
+
+        if (ROOT == parentName) {
+            result = rootElements.add(new SimpleMenuItem(childName, actionDelegate));
+        } else {
+
+            Optional<ItemInfo> parentItem = findItem(parentName);
+            if (parentItem.isPresent()) {
+                result = parentItem.get().menuItem.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
+            }
         }
         return result;
     }
 
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
-        Optional<ItemInfo> item = findItem(itemName);
-        Optional<MenuItemInfo> result = item.isPresent()
-                ?
-                Optional.of(new MenuItemInfo(item.get().menuItem, item.get().number))
-                : Optional.empty();
 
-
-        return result;
+        return findItem(itemName)
+                .map(itemInfo -> new MenuItemInfo(itemInfo.menuItem,itemInfo.number));
     }
 
     @Override
@@ -122,7 +121,7 @@ public class SimpleMenu implements Menu {
             String lastNumber = numbers.removeFirst();
             List<MenuItem> children = current.getChildren();
             int currentNumber = children.size();
-            for (var i = children.listIterator(children.size()); i.hasPrevious();) {
+            for (var i = children.listIterator(children.size()); i.hasPrevious(); ) {
                 stack.addFirst(i.previous());
                 numbers.addFirst(lastNumber.concat(String.valueOf(currentNumber--)).concat("."));
             }

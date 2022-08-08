@@ -1,6 +1,5 @@
 package ru.job4j.solid.isp.menu;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,7 +7,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SimpleMenuTest {
 
@@ -57,11 +57,11 @@ public class SimpleMenuTest {
     public void whenPrintAll() {
         String expected = """
                 1.Сходить в магазин
-                1.1.Купить продукты
-                1.1.1.Купить хлеб
-                1.1.2.Купить молоко
+                --1.1.Купить продукты
+                ----1.1.1.Купить хлеб
+                ----1.1.2.Купить молоко
                 2.Покормить собаку
-                                 """;
+                """;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 

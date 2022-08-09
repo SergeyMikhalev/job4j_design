@@ -49,7 +49,6 @@ public class SimpleMenu implements Menu {
     private Optional<ItemInfo> findItem(String name) {
         DFSIterator iterator = new DFSIterator();
         ItemInfo result = null;
-
         while (iterator.hasNext()) {
             ItemInfo itemInfo = iterator.next();
             if (itemInfo.menuItem.getName().equals(name)) {
@@ -58,11 +57,9 @@ public class SimpleMenu implements Menu {
             }
         }
         return Optional.ofNullable(result);
-
     }
 
     private static class SimpleMenuItem implements MenuItem {
-
         private final String name;
         private final List<MenuItem> children = new ArrayList<>();
         private final ActionDelegate actionDelegate;
@@ -125,7 +122,6 @@ public class SimpleMenu implements Menu {
     }
 
     private class ItemInfo {
-
         MenuItem menuItem;
         String number;
 

@@ -6,5 +6,6 @@ import ru.job4j.ui.console.input.Input;
 
 public interface UserAction {
     String name();
+
     boolean execute(Input input, Menu menu);
 }

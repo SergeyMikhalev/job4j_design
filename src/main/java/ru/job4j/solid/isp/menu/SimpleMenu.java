@@ -11,14 +11,10 @@ public class SimpleMenu implements Menu {
         if (findItem(childName).isPresent()) {
             return false;
         }
-
         boolean result = false;
-
-
         if (ROOT == parentName) {
             result = rootElements.add(new SimpleMenuItem(childName, actionDelegate));
         } else {
-
             Optional<ItemInfo> parentItem = findItem(parentName);
             if (parentItem.isPresent()) {
                 result = parentItem.get().menuItem.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
@@ -29,7 +25,6 @@ public class SimpleMenu implements Menu {
 
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
-
         return findItem(itemName)
                 .map(itemInfo -> new MenuItemInfo(itemInfo.menuItem, itemInfo.number));
     }
@@ -68,9 +63,9 @@ public class SimpleMenu implements Menu {
 
     private static class SimpleMenuItem implements MenuItem {
 
-        private String name;
-        private List<MenuItem> children = new ArrayList<>();
-        private ActionDelegate actionDelegate;
+        private final String name;
+        private final List<MenuItem> children = new ArrayList<>();
+        private final ActionDelegate actionDelegate;
 
         public SimpleMenuItem(String name, ActionDelegate actionDelegate) {
             this.name = name;
@@ -121,13 +116,12 @@ public class SimpleMenu implements Menu {
             String lastNumber = numbers.removeFirst();
             List<MenuItem> children = current.getChildren();
             int currentNumber = children.size();
-            for (var i = children.listIterator(children.size()); i.hasPrevious();) {
+            for (var i = children.listIterator(children.size()); i.hasPrevious(); i.hasPrevious()) {
                 stack.addFirst(i.previous());
                 numbers.addFirst(lastNumber.concat(String.valueOf(currentNumber--)).concat("."));
             }
             return new ItemInfo(current, lastNumber);
         }
-
     }
 
     private class ItemInfo {

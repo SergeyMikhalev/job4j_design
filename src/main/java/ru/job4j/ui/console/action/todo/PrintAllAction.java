@@ -2,7 +2,6 @@ package ru.job4j.ui.console.action.todo;
 
 
 import ru.job4j.solid.isp.menu.Menu;
-
 import ru.job4j.solid.isp.menu.MenuPrinter;
 import ru.job4j.solid.isp.menu.SimpleMenuPrinter;
 import ru.job4j.ui.console.action.UserAction;

@@ -24,7 +24,7 @@ public class SimpleParking implements Parking {
     public boolean park(Car car) {
         boolean result = false;
         if (!present(car.getId())) {
-            if (car.getSize() > 1) {
+            if (car.getSize() > ParkingRules.PASSENGER_CAR_SIZE) {
                 result = parkTruck(car);
             } else {
                 result = parkPass(car);

@@ -6,6 +6,9 @@ import java.util.Optional;
 
 public class SimpleParking implements Parking {
 
+    private static final int PASSENGER_PARKING_PLACE_SIZE = 1;
+    private static final int TRUCK_PARKING_PLACE_SIZE = 1;
+
     private int passengerPlacesFree;
     private int trackPlacesFree;
 
@@ -52,23 +55,21 @@ public class SimpleParking implements Parking {
 
     private boolean parkTruck(Car car) {
         boolean result = false;
-        if (trackPlacesFree > 0) {
+        if (trackPlacesFree >= TRUCK_PARKING_PLACE_SIZE) {
             trackPlacesFree--;
             trucks.put(car.getId(), car);
             result = true;
-        } else {
-            if (passengerPlacesFree >= car.getSize()) {
-                passengerPlacesFree -= car.getSize();
-                pass.put(car.getId(), car);
-                result = true;
-            }
+        } else if (passengerPlacesFree >= car.getSize()) {
+            passengerPlacesFree -= car.getSize();
+            pass.put(car.getId(), car);
+            result = true;
         }
         return result;
     }
 
     private boolean parkPass(Car car) {
         boolean result = false;
-        if (passengerPlacesFree > 0) {
+        if (passengerPlacesFree >= PASSENGER_PARKING_PLACE_SIZE) {
             passengerPlacesFree--;
             pass.put(car.getId(), car);
             result = true;

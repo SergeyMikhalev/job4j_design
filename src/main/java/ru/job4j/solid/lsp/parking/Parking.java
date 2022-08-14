@@ -5,7 +5,7 @@ import java.util.Optional;
 public interface Parking {
     boolean park(Car car);
 
-    Optional<Car> leave(int id);
+    Optional<Car> leave(String idNumber);
 
-    boolean present(int id);
+    boolean present(String idNumber);
 }

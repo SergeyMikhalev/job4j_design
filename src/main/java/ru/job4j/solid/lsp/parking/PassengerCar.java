@@ -1,15 +1,15 @@
 package ru.job4j.solid.lsp.parking;
 
 public class PassengerCar implements Car {
-    private final int id;
+    private final String idNumber;
 
-    public PassengerCar(int id) {
-        this.id = id;
+    public PassengerCar(String idNumber) {
+        this.idNumber = idNumber;
     }
 
     @Override
-    public int getId() {
-        return id;
+    public String getIdNumber() {
+        return idNumber;
     }
 
     @Override

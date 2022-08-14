@@ -6,14 +6,11 @@ import java.util.Optional;
 
 public class SimpleParking implements Parking {
 
-    private static final int PASSENGER_PARKING_PLACE_SIZE = 1;
-    private static final int TRUCK_PARKING_PLACE_SIZE = 1;
-
     private int passengerPlacesFree;
     private int trackPlacesFree;
 
-    private final Map<Integer, Car> pass = new HashMap<>();
-    private final Map<Integer, Car> trucks = new HashMap<>();
+    private final Map<String, Car> pass = new HashMap<>();
+    private final Map<String, Car> trucks = new HashMap<>();
 
     public SimpleParking(int passengerPlaces, int trackPlaces) {
         passengerPlacesFree = passengerPlaces;
@@ -23,7 +20,7 @@ public class SimpleParking implements Parking {
     @Override
     public boolean park(Car car) {
         boolean result = false;
-        if (!present(car.getId())) {
+        if (!present(car.getIdNumber())) {
             if (car.getSize() > ParkingRules.PASSENGER_CAR_SIZE) {
                 result = parkTruck(car);
             } else {
@@ -34,14 +31,14 @@ public class SimpleParking implements Parking {
     }
 
     @Override
-    public Optional<Car> leave(int id) {
+    public Optional<Car> leave(String idNumber) {
         Optional<Car> result = Optional.empty();
-        if (trucks.containsKey(id)) {
-            result = Optional.of(trucks.get(id));
+        if (trucks.containsKey(idNumber)) {
+            result = Optional.of(trucks.get(idNumber));
             trackPlacesFree += result.get().getSize();
         } else {
-            if (pass.containsKey(id)) {
-                result = Optional.of(pass.get(id));
+            if (pass.containsKey(idNumber)) {
+                result = Optional.of(pass.get(idNumber));
                 passengerPlacesFree += ParkingRules.PASSENGER_CAR_SIZE;
             }
         }
@@ -49,19 +46,19 @@ public class SimpleParking implements Parking {
     }
 
     @Override
-    public boolean present(int id) {
-        return (pass.containsKey(id) || trucks.containsKey(id));
+    public boolean present(String idNumber) {
+        return (pass.containsKey(idNumber) || trucks.containsKey(idNumber));
     }
 
     private boolean parkTruck(Car car) {
         boolean result = false;
-        if (trackPlacesFree >= TRUCK_PARKING_PLACE_SIZE) {
+        if (trackPlacesFree >= ParkingRules.PASSENGER_CAR_SIZE) {
             trackPlacesFree--;
-            trucks.put(car.getId(), car);
+            trucks.put(car.getIdNumber(), car);
             result = true;
         } else if (passengerPlacesFree >= car.getSize()) {
             passengerPlacesFree -= car.getSize();
-            pass.put(car.getId(), car);
+            pass.put(car.getIdNumber(), car);
             result = true;
         }
         return result;
@@ -69,9 +66,9 @@ public class SimpleParking implements Parking {
 
     private boolean parkPass(Car car) {
         boolean result = false;
-        if (passengerPlacesFree >= PASSENGER_PARKING_PLACE_SIZE) {
+        if (passengerPlacesFree >= ParkingRules.PASSENGER_CAR_SIZE) {
             passengerPlacesFree--;
-            pass.put(car.getId(), car);
+            pass.put(car.getIdNumber(), car);
             result = true;
         }
         return result;

@@ -22,6 +22,7 @@ public class ImportDB {
         this.dump = dump;
     }
 
+
     public List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
 

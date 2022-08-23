@@ -45,12 +45,6 @@ public class SimpleParking implements Parking {
         return result;
     }
 
-    /**
-     * @author Михалев Сергей
-     * @version 1.0
-     * @param idNumber Уникальный цифробуквенный идентификатор автомобиля
-     * @return true если автомобиль находится на парковке, иначе false
-    */
     @Override
     public boolean present(String idNumber) {
         return (pass.containsKey(idNumber) || trucks.containsKey(idNumber));

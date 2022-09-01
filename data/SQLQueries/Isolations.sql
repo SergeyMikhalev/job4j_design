@@ -14,4 +14,8 @@ select AVG(height) from heights;
 
 update heights set height = 160 where name = 'Vasia';
 
- update heights set height = 180 where name = 'Kolia';
+update heights set height = 180 where name = 'Kolia';
+
+-- ƒополнительный запрос по точкам сохранени€
+
+delete from heights where id =3;

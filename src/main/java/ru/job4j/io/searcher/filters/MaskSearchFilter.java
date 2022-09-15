@@ -8,9 +8,9 @@ public class MaskSearchFilter implements SearchFilter {
     public MaskSearchFilter(String mask) {
         this.regex = "^" +
                 mask
-                        .replaceAll("/.", "[.]")
-                        .replaceAll("/*", ".*")
-                        .replaceAll("/?", ".") +
+                        .replace(".", "[.]")
+                        .replace("*", ".*")
+                        .replace("?", ".") +
                 "$";
     }
 

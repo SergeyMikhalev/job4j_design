@@ -5,6 +5,8 @@ import ru.job4j.solid.isp.menu.Menu;
 import ru.job4j.ui.console.action.UserAction;
 import ru.job4j.ui.console.input.Input;
 
+import java.nio.file.Path;
+
 public class PrintFileAction implements UserAction {
     private final DirFileCache cache;
 
@@ -21,11 +23,12 @@ public class PrintFileAction implements UserAction {
     public boolean execute(Input input, Menu menu) {
         String filePathStr = input.askStr("Please enter file name you want to print:");
 
-        try {
+        if (Path.of(cache.getCachingDir(), filePathStr).toFile().exists()) {
             System.out.println(cache.get(filePathStr));
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+        } else {
+            System.out.println("File not found.");
         }
+
         return true;
     }
 }

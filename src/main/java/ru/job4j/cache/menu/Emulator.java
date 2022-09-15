@@ -3,7 +3,6 @@ package ru.job4j.cache.menu;
 import ru.job4j.cache.DirFileCache;
 import ru.job4j.gc.prof.TestSortingApp;
 import ru.job4j.ui.console.action.UserAction;
-import ru.job4j.ui.console.action.cache.LoadToCacheAction;
 import ru.job4j.ui.console.action.cache.PrintFileAction;
 import ru.job4j.ui.console.action.cache.SetCacheDirAction;
 import ru.job4j.ui.console.action.sort.ExitAction;
@@ -50,7 +49,6 @@ public class Emulator {
 
         List<UserAction> actions = List.of(
                 new SetCacheDirAction(cache),
-                new LoadToCacheAction(cache),
                 new PrintFileAction(cache),
                 new ExitAction()
         );

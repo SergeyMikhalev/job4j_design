@@ -17,15 +17,15 @@ public abstract class AbstractCache<K, V> {
     public V get(K key) {
         V result = null;
         System.out.println("Загрузка из кэша...");
-        SoftReference<V> refResult = cache.get(key);
-        if (!Objects.isNull(refResult)) {
-            result = refResult.get();
-        }
-        if (Objects.isNull(refResult) || Objects.isNull(result)) {
+        SoftReference<V> refResult = cache.getOrDefault(key, new SoftReference<>(null));
+
+        if (Objects.isNull(refResult.get())) {
             System.out.println("Объект не найден, загружаю из долговременного хранилища...");
             result = load(key);
             refResult = new SoftReference<>(result);
             cache.put(key, refResult);
+        } else {
+            result = refResult.get();
         }
         return result;
     }

@@ -18,7 +18,7 @@ public class DirFileCache extends AbstractCache<String, String> {
         Path fullPath = Path.of(cachingDir, key);
 
         System.out.println("Поиска файла ->" + fullPath);
-        String result = "";
+        String result = null;
         try {
             System.out.println("Файл найден. Попытка чтения...");
             result = Files.readString(fullPath);
@@ -29,6 +29,7 @@ public class DirFileCache extends AbstractCache<String, String> {
     }
 
     public void setCachingDir(String cachingDir) {
+        super.cache.clear();
         this.cachingDir = cachingDir;
     }
 

@@ -6,7 +6,8 @@ public class MaskSearchFilter implements SearchFilter {
     private final String regex;
 
     public MaskSearchFilter(String mask) {
-        this.regex = "^" +
+        this.regex = "^"
+                +
                 mask
                         .replace(".", "[.]")
                         .replace("*", ".*")

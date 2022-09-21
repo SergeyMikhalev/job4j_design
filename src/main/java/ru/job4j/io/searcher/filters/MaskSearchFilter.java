@@ -7,12 +7,11 @@ public class MaskSearchFilter implements SearchFilter {
 
     public MaskSearchFilter(String mask) {
         this.regex = "^"
-                +
-                mask
+                + mask
                         .replace(".", "[.]")
                         .replace("*", ".*")
-                        .replace("?", ".") +
-                "$";
+                        .replace("?", ".")
+                + "$";
     }
 
     @Override

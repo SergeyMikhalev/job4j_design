@@ -11,7 +11,6 @@ public class RegExpSearchFilter implements SearchFilter {
 
     @Override
     public boolean filter(Path s) {
-        System.out.println(regex);
         return s.toFile().getName().matches(regex);
     }
 }

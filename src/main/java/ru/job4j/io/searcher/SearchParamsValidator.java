@@ -1,50 +1,60 @@
 package ru.job4j.io.searcher;
 
 import ru.job4j.io.ArgsName;
+import ru.job4j.io.searcher.filters.MaskSearchFilter;
+import ru.job4j.io.searcher.filters.NameSearchFilter;
+import ru.job4j.io.searcher.filters.RegExpSearchFilter;
+import ru.job4j.io.searcher.filters.SearchFilter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.nio.file.Path;
 
 public class SearchParamsValidator {
     public static SearchParams validate(String[] args) {
-
         ArgsName argsName = ArgsName.of(args);
-
         String directoryString = argsName.get("d");
         String resultFileString = argsName.get("o");
         String maskTypeString = argsName.get("t");
         String mask = argsName.get("n");
 
-        File directory = new File(directoryString);
-        if (!directory.exists()) {
-            throw new IllegalArgumentException();
+        checkSourceDirectory(directoryString);
+        checkTargetFile(resultFileString);
+        SearchFilter filter = null;
+        switch (maskTypeString) {
+            case "mask":
+                filter = new MaskSearchFilter(mask);
+                break;
+            case "name":
+                filter = new NameSearchFilter(mask);
+                break;
+            case "regex":
+                filter = new RegExpSearchFilter(mask);
+                break;
+            default:
+                throw new IllegalArgumentException();
         }
 
-        if (!directory.isDirectory()) {
-            throw new IllegalArgumentException();
-        }
+        return new SearchParams(Path.of(directoryString), Path.of(resultFileString), filter);
+    }
 
+    private static void checkTargetFile(String resultFileString) {
         File file = new File(resultFileString);
         try {
             file.createNewFile();
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
+    }
 
-        if (!List.of("mask", "name", "regex").contains(maskTypeString)) {
+    private static void checkSourceDirectory(String directoryString) {
+        File directory = new File(directoryString);
+        if (!directory.exists()) {
             throw new IllegalArgumentException();
         }
-
-        SearchParams.SearchType type = SearchParams.SearchType.MASK;
-        if (maskTypeString.equals("name")) {
-            type = SearchParams.SearchType.FULL_NAME;
+        if (!directory.isDirectory()) {
+            throw new IllegalArgumentException();
         }
-        if (maskTypeString.equals("regex")) {
-            type = SearchParams.SearchType.REGEXP;
-        }
-
-        return new SearchParams(directoryString, mask, type, resultFileString);
     }
 
     public static String getHint() {

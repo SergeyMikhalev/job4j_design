@@ -1,52 +1,38 @@
 package ru.job4j.io.searcher;
 
-import java.nio.file.Files;
+import ru.job4j.io.searcher.filters.SearchFilter;
+
 import java.nio.file.Path;
-import java.util.function.BiPredicate;
 
 public class SearchParams {
-    private final String searchDir;
-    private final String searchMask;
-    private final  SearchType searchType;
-    private final String resultFile;
+    private final Path searchDir;
+    private final Path resultFile;
+    private final SearchFilter filter;
 
-
-    public SearchParams(String searchDir, String searchMask, SearchType searchType, String resultFile) {
+    public SearchParams(Path searchDir, Path resultFile, SearchFilter filter) {
         this.searchDir = searchDir;
-        this.searchMask = searchMask;
-        this.searchType = searchType;
         this.resultFile = resultFile;
+        this.filter = filter;
     }
 
-    public String getSearchDir() {
+    public Path getSearchDir() {
         return searchDir;
     }
 
-    public String getSearchMask() {
-        return searchMask;
-    }
-
-    public SearchType getSearchType() {
-        return searchType;
-    }
-
-    public String getResultFile() {
+    public Path getResultFile() {
         return resultFile;
+    }
+
+    public SearchFilter getFilter() {
+        return filter;
     }
 
     @Override
     public String toString() {
         return "SearchParams{"
-                + "searchDir='" + searchDir + '\''
-                + ", searchMask='" + searchMask + '\''
-                + ", searchType=" + searchType
-                + ", resultFile='" + resultFile + '\''
+                + "searchDir=" + searchDir
+                + ", resultFile=" + resultFile
+                + ", filter=" + filter
                 + '}';
-    }
-
-    enum SearchType {
-        MASK,
-        FULL_NAME,
-        REGEXP
     }
 }
